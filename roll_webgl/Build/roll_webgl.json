@@ -1,0 +1,9 @@
+{
+"TOTAL_MEMORY": 268435456,
+"dataUrl": "roll_webgl.data.unityweb",
+"asmCodeUrl": "roll_webgl.asm.code.unityweb",
+"asmMemoryUrl": "roll_webgl.asm.memory.unityweb",
+"asmFrameworkUrl": "roll_webgl.asm.framework.unityweb",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20"
+}

@@ -68,7 +68,7 @@ var tamenMaterial = new THREE.MeshNormalMaterial({color: 0xFFFF00});
 var tamen = new THREE.Mesh(tamenGeometry,tamenMaterial);
 tamen.position.set(200,200,0);
 scene.add(tamen);
-Js3Dink.addURL(tamen, 'TopPage.html');
+Js3Dink.addURL(tamen, 'index.html');
 
 // 小さい球たち
 var sballNUM = 2000;
