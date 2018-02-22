@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>movie</title>
+    <link rel="icon" type="image/png" href="sozai/g4439.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="sozai/g4439.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="sozai/g4439.png" sizes="96x96">
+    <script src="js/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/3Dink.js"></script>
+
+    <style >
+      body
+      {
+        margin:0;
+        padding:0;
+        overflow: hidden;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="WebGL-output">
+    </div>
+
+    <script>
+
+          function init()
+          {
+                  var scene, camera, light, renderer, controls
+                  scene = new THREE.Scene();
+                  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
+                  camera.position.set(70, 0, 100);
+
+                  light = new THREE.DirectionalLight(0xffffff);
+                  light.position.set(50, 50, 50);
+                  scene.add(light);
+
+
+                  // Rendererを用意
+                  renderer = new THREE.WebGLRenderer();
+                  renderer.setSize(window.innerWidth, window.innerHeight);
+                  renderer.setPixelRatio(window.devicePixelRatio);
+
+                  document.body.appendChild(renderer.domElement);
+
+                  //マウスで動かす
+                  controls = new THREE.OrbitControls(camera);
+                  controls.minDistance = 15;
+                  controls.maxDistance = 1000;
+
+
+                  // リンクを追加
+                  Js3Dink.setRendererObj(renderer, scene, camera);
+                  Js3Dink.domEvent.addFnc('Fn','Fn');
+
+
+                  //直方体
+                  var boxGeometry = new THREE.BoxGeometry(70,40,5,7,2,2);
+                  var boxMaterial = new THREE.MeshBasicMaterial({color:0xbdbdbd, wireframe:true});
+                  var box = new THREE.Mesh(boxGeometry,boxMaterial);
+                  scene.add(box);
+
+									var decaGeometry = new THREE.DodecahedronGeometry(200);
+									var decaMaterial = new THREE.MeshBasicMaterial({color:0xfe2e2e, wireframe:true});
+									var deca = new THREE.Mesh(decaGeometry,decaMaterial);
+                  deca.position.set(0,0,0);
+									scene.add(deca);
+
+                  // 多面体
+                  var tamenGeometry = new THREE.IcosahedronGeometry(10); // 半径、分割数
+                  var tamenMaterial = new THREE.MeshNormalMaterial({color: 0xFFFF00});
+                  var tamen = new THREE.Mesh(tamenGeometry,tamenMaterial);
+                  tamen.position.set(200,200,0);
+                  scene.add(tamen);
+                  Js3Dink.addURL(tamen, 'index.html');
+
+                  // 小さい球たち
+                  var sballNUM = 1500;
+                  var sball = [];
+                  var sballgeometry = new THREE.SphereGeometry(0.2,8,4);
+                  var sballmaterial = new THREE.MeshBasicMaterial( { color: 0xaaffff, wireframe:true } );
+                  for(var i = 0; i < sballNUM; i++)
+                  {
+                          sball[i] = new THREE.Mesh( sballgeometry, sballmaterial );
+                          sball[i].position.set( Math.random() * 1400-700, Math.random() * 1400-700, Math.random() * 1400-700 );
+                          scene.add(sball[i]);
+                  }
+
+
+                  // アニメーション
+                  function animate ()
+                  {
+                          // 小さい球のアニメーション
+                          for(var i = 0; i < sballNUM; i++)
+                          {
+                                  // 円運動
+
+                                  // 瞬き
+                                  sball[i].scale.x = 0.5 * Math.sin( Date.now() / 1000) + 1;
+                                  sball[i].scale.y = 0.5 * Math.sin( Date.now() / 1000) + 1;
+                                  sball[i].scale.z = 0.5 * Math.sin( Date.now() / 1000) + 1;
+
+                          }
+
+                          // 回転
+                          deca.rotation.x += 0.001;
+                          deca.rotation.y += 0.001;
+                          tamen.rotation.x -= 0.005;
+                          tamen.rotation.y -= 0.008;
+                          requestAnimationFrame(animate);
+                          renderer.render(scene,camera);
+                  }
+                  animate();
+
+                  window.addEventListener( 'resize', onWindowResize, false );
+                  function onWindowResize()
+                  {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+
+                    renderer.setSize( window.innerWidth, window.innerHeight );
+                    render();
+                  }
+
+
+                  function rendererRender()
+                  {
+                          renderer.render(scene, camera);
+                          controls.update(); //OrbitControlsの更新
+                          requestAnimationFrame(rendererRender);
+                  }
+                  rendererRender();
+
+
+          };
+          window.onload = init;
+
+    </script>
+
+  </body>
+</html>
