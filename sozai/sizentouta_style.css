@@ -9,12 +9,12 @@ head,body
   margin: 150px auto;
   width:40%;
   font-size: 17px;
-  min-width: 430px;
+  min-width: 450px;
 }
 
 #shoukai{
   margin: 60px auto;
   width: 30%;
-  min-width: 300px;
+  min-width: 450px;
   font-size: 14px;
 }
